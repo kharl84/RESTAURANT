@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypts');
+const bcrypt = require('bcryptjs');
 const createHttpError = require('http-errors');
 const { roles } = require('../utils/constants');
 
