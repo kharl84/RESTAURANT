@@ -18,7 +18,6 @@
   "homepage": "https://github.com/kharl84/RESTAURANT#readme",
   "description": "POS",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
