@@ -106,7 +106,8 @@ mongoose
   .then(() => {
     console.log('💾 connected...');
     // Listening for connections on the defined PORT
-    app.listen(PORT, () => console.log(`🚀 @ https://steakzcharles.onrender.com`));
+    app.listen(PORT, () => console.log(`🚀 Server is live at ${process.env.BASE_URL || 'http://localhost'}:${PORT}`));
+
   })
   .catch((err) => console.log(err.message));
 
