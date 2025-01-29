@@ -1,0 +1,114 @@
+<!-- views/menu.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>Menu</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/auth/logout">Logout</a>
+    </nav>
+  </header>
+
+  <main>
+    <% if (messages.success) { %>
+      <div class="alert success"><%= messages.success %></div>
+    <% } %>
+    <% if (messages.error) { %>
+      <div class="alert error"><%= messages.error %></div>
+    <% } %>
+
+    <!-- Branch Selection -->
+    <section class="branch-selector">
+      <h2>Select Branch</h2>
+      <form method="GET" action="/menu">
+        <select name="branch" onchange="this.form.submit()">
+          <option value="">-- Select a Branch --</option>
+          <% branches.forEach(branch => { %>
+            <option value="<%= branch._id %>" <%= branch._id.toString() === branchId ? 'selected' : '' %>>
+              <%= branch.name %> - <%= branch.city %>
+            </option>
+          <% }) %>
+        </select>
+      </form>
+    </section>
+
+    <!-- Branch Details -->
+    <% if (branchName && branchCity) { %>
+      <section class="branch-details">
+        <h2>Branch: <%= branchName %> (<%= branchCity %>)</h2>
+      </section>
+    <% } %>
+
+    <!-- Menu Items -->
+    <section class="menu-items">
+      <h2>Menu Items</h2>
+      <% if (menuItems.length > 0) { %>
+        <div class="menu-grid">
+          <% menuItems.forEach(item => { %>
+            <div class="menu-card">
+              <h3 class="menu-item-name"><%= item.name %></h3>
+              <p class="menu-item-price">$<%= item.price.toFixed(2) %></p>
+              <form method="POST" action="/menu/select">
+                <input type="hidden" name="itemId" value="<%= item._id %>">
+                <input type="hidden" name="branchId" value="<%= branchId %>">
+                <input type="number" name="quantity" value="1" min="1" required>
+                <button type="submit">Add to Cart</button>
+              </form>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <p>No menu items found for this branch.</p>
+      <% } %>
+    </section>
+
+    <!-- Cart -->
+    <section class="cart">
+      <h2 class="cart-title">Your Cart</h2>
+      <div class="cart-items-container">
+        <% if (cartItems.length > 0) { %>
+          <% cartItems.forEach(item => { %>
+            <div class="cart-item-card">
+              <h3 class="cart-item-name"><%= item.name %></h3>
+              <p class="cart-item-quantity">Quantity: <%= item.quantity %></p>
+              <p class="cart-item-price">Price: $<%= (item.price * item.quantity).toFixed(2) %></p>
+              <form method="POST" action="/menu/remove">
+                <input type="hidden" name="itemId" value="<%= item._id %>">
+                <input type="hidden" name="branchId" value="<%= branchId %>">
+                <button type="submit">Remove</button>
+              </form>
+              <form method="POST" action="/menu/update">
+                <input type="hidden" name="itemId" value="<%= item._id %>">
+                <input type="hidden" name="branchId" value="<%= branchId %>">
+                <input type="number" name="quantity" value="<%= item.quantity %>" min="1" required>
+                <button type="submit">Update Quantity</button>
+              </form>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>Your cart is empty.</p>
+        <% } %>
+      </div>
+
+      <% if (cartItems.length > 0) { %>
+        <!-- Checkout Form -->
+        <form action="/menu/checkout" method="POST">
+          <input type="hidden" name="branchId" value="<%= branchId %>">
+          <button type="submit">Place Order</button>
+        </form>
+      <% } %>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Steakz</p>
+  </footer>
+</body>
+</html>

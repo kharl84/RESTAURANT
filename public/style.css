@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base Styles (Light Theme) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333;
+  --primary-color: #4caf50;
+  --secondary-color: #ff6347;
+  --header-bg-color: rgba(0, 0, 0, 0.7); /* Transparent background */
+  --footer-bg-color: #333;
+  --link-hover-color: #ff6347;
+  --button-bg-color: #4caf50;
+  --button-hover-color: #45a049;
+}
+
+/* Dark Theme Override */
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --primary-color: #81C784;
+  --secondary-color: #FF7043;
+  --header-bg-color: rgba(0, 0, 0, 0.8);
+  --footer-bg-color: #1e1e1e;
+  --link-hover-color: #ff9800;
+  --button-bg-color: #81C784;
+  --button-hover-color: #6ba53c;
+}
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('/steakz.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Navbar */
+nav {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--header-bg-color); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background: var(--link-hover-color);
+  color: white;
+}
+
+/* Title */
+h1.title {
+  font-size: 2.5rem;
+  color: white;
+  text-align: center;
+  margin-top: 6rem;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Main Section */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+form.lg-form {
+  margin: 16px;
+  padding: 32px;
+  border: 4px solid #d1d5db;
+  min-width: 400px;
+  border-radius: 16px;
+}
+
+.lg-form label,
+.lg-form input {
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 1rem;
+  background-color: #f3f4f6;
+}
+
+.lg-form label {
+  font-weight: bold;
+}
+
+.lg-form input {
+  height: 44px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 1rem;
+  background-color: #f3f4f6;
+}
+
+.lg-form input[type='submit'] {
+  margin: 16px 0;
+  background-color: #71d2cf;
+  color: #fff;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+  background-color: #fff;
+  border: 2px solid #f3f4f6;
+  /* box-shadow: 0 0 8px #fdf2f8; */
+}
+
+h1.table {
+  text-decoration: underline;
+  margin: 16px 0;
+}
+
+/* Table */
+table {
+  margin-top: 32px;
+  min-width: 600px;
+  border: none;
+  border-spacing: 0;
+  border: 4px solid #d1d5db;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  color: #fff; /* White text color for contrast */
+}
+
+
+thead {
+  background: var(--secondary-color);
+  color: white;
+}
+
+thead tr {
+  border-radius: 8px;
+  background-color: #db2777;
+  overflow: hidden;
+}
+
+thead th {
+  padding: 8px 0;
+  text-align: left;
+  padding-left: 16px;
+}
+
+
+table th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+table th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+thead th:nth-child(1) {
+  max-width: 44px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s ease;
+}
+
+tbody tr:hover {
+  background: #f9f9f9;
+}
+
+tbody td {
+  padding: 1rem;
+}
+
+/* Footer */
+footer {
+  background: var(--footer-bg-color);
+  color: #fff;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 0 2rem;
+}
+
+.footer-about, .footer-contact {
+  flex: 1 1 45%;
+}
+
+.footer-about h3, .footer-contact h3 {
+  font-size: 1.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.footer-contact a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  border-top: 1px solid #555;
+  padding-top: 1rem;
+  color: #aaa;
+}
+
+/* Home Button */
+.home-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--button-bg-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-decoration: none;
+}
+
+.home-button:hover {
+  background: var(--button-hover-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  form.lg-form {
+    width: 90%;
+  }
+}
+
+/* Message Styles */
+.messages {
+  position: fixed;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 10000;
+  font-weight: bold;
+}
+
+.messages ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.messages li {
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.messages .success {
+  background-color: #4caf50;
+}
+
+.messages .error {
+  background-color: #f44336;
+}
+
+.messages .info {
+  background-color: #2196f3;
+}
+
+.messages .warning {
+  background-color: #ff9800;
+}
+
+/* Default light theme */
+body[data-theme='light'] {
+  background-color: #fff;
+  color: #333;
+}
+
+body[data-theme='light'] .hero {
+  background-color: #f1f1f1;
+}
+
+body[data-theme='light'] footer {
+  background-color: #fff;
+  color: #333;
+}
+
+/* Dark theme styles */
+body[data-theme='dark'] {
+  background-color: #333;
+  color: #fff;
+}
+
+body[data-theme='dark'] .hero {
+  background-color: #222;
+}
+
+body[data-theme='dark'] footer {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 9999;
+}
+
+.theme-toggle-button:hover {
+  background: #45a049;
+}
+
+/* Main container for the menu */
+.menu-items, .cart-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Style for each menu item */
+.menu-item, .cart-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover, .cart-item:hover {
+  transform: translateY(-5px);
+}
+
+/* Glow effect for the menu title */
+h1 {
+  font-size: 3rem; /* Adjust size as needed */
+  color: #f1c40f; /* Gold color */
+  text-align: center; /* Center the title */
+  text-shadow: 
+    0 0 5px #f1c40f,    /* Small glow */
+    0 0 10px #0d9d22,   /* Larger glow */
+    0 0 15px #f39c12,   /* Even larger glow for depth */
+    0 0 20px #e67e22,   /* Deeper glow */
+    0 0 30px #e74c3c,   /* Stronger glow */
+    0 0 40px #e74c3c;   /* Maximum glow */
+}
+
+
+/* Title and price styling */
+h3 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+button {
+  background-color: #81c494;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+/* Form styling */
+form {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  margin-right: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="hidden"] {
+  display: none;
+}
+
+/* Style for the 'Back to Home' button */
+.back-home-button {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.back-home-button button {
+  background-color: #2ecc71; /* Green color */
+  color: white;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-home-button button:hover {
+  background-color: #27ae60; /* Darker green when hovered */
+}
+
+.cart-items {
+  margin-top: 40px;
+}
+
+/* Responsive design: stack items vertically on smaller screens */
+@media (max-width: 768px) {
+  .menu-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Style for the about section */
+.about {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  color: white; /* Ensure the text is readable */
+  padding: 20px;
+  border-radius: 10px; /* Optional: add rounded corners */
+  margin: 20px; /* Optional: space around the about section */
+}
+
+/* Optional: Adding a slight box-shadow to make the text pop more */
+.about ol {
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Add shadow for more contrast */
+  padding: 10px;
+}
+
+/* Menu Items Container */
+.menu-items-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  border-radius: 10px;
+}
+
+/* Cart Items Container */
+.cart-items-container {
+  margin-top: 40px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Menu and Cart Item Cards */
+.menu-item-card, .cart-item-card {
+  background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.menu-item-card:hover, .cart-item-card:hover {
+  transform: translateY(-5px); /* Hover effect */
+}
+
+/* Text Color for Item Names, Descriptions, Prices */
+.item-name, .cart-item-name, .item-description, .item-price {
+  color: #000; /* Black text color */
+}
+
+/* Empty Cart Message */
+.empty-cart-message {
+  color: #000; /* Black text color */
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* Additional Button and Form Styles */
+.add-to-cart-button, .update-cart-button, .remove-cart-button {
+  background-color: #4caf50; /* Green background */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-to-cart-button:hover, .update-cart-button:hover, .remove-cart-button:hover {
+  background-color: #45a049; /* Darker green when hovered */
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 5px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+

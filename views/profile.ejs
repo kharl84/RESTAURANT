@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  
+  <!-- Internal CSS -->
+  <style>
+    /* Profile page container */
+    .profile {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #16bbbd;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Profile title */
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Go back button */
+    .goback {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #007bff;
+      padding: 0 10px;
+      transition: color 0.3s ease;
+    }
+
+    .goback:hover {
+      color: #0056b3;
+    }
+
+    /* Profile sections */
+    .profile div {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    /* Title styling */
+    .title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* Subtitle styling */
+    .subtitle {
+      font-size: 1rem;
+      color: #333;
+      word-wrap: break-word;
+    }
+
+    /* Style for the 'User object' section */
+    pre.subtitle {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    /* Hover effect for each profile div */
+    .profile div:hover {
+      background-color: #e1f7ff;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+      .profile {
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .title {
+        font-size: 1rem;
+      }
+
+      .subtitle {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1><span class="goback" onclick="window.history.back()">←</span> Profile</h1>
+
+<div class="profile">
+  <div>
+    <p class="title">Email/Username</p>
+    <p class="subtitle"><%= person.email %></p>
+  </div>
+  <div>
+    <p class="title">Role</p>
+    <p class="subtitle"><%= person.role %></p>
+  </div>
+</div>
+
+<%- include('./layouts/footer') %>
+
+</body>
+</html>

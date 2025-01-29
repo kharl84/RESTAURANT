@@ -1,0 +1,67 @@
+<%- include('layouts/header') %>
+
+<h1>Moderator Branch Orders Report</h1>
+
+<!-- Branch Filter Dropdown -->
+<div class="branch-filter">
+  <form action="/moderator/branch-report" method="GET">
+    <label for="branchId">Select Branch:</label>
+    <select name="branchId" id="branchId">
+      <option value="all">All Branches</option>
+      <% branches.forEach(branch => { %>
+        <option value="<%= branch._id %>" <%= branch._id.toString() === branchId ? 'selected' : '' %>>
+          <%= branch.city %> Branch
+        </option>
+      <% }); %>
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+</div>
+
+<!-- Display Branch or Global Report Title -->
+<h2><%= selectedBranchName !== 'All Branches' ? 'Orders for ' + selectedBranchName : 'All Branch Orders' %></h2>
+
+<!-- Orders Section -->
+<div class="report-section">
+  <h2>Orders</h2>
+  <% if (orders && orders.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Menu Items</th>
+          <th>Total Amount</th>
+          <th>Order Date</th>
+          <th>Branch</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% orders.forEach(order => { %>
+          <tr>
+            <td>Order #<%= order._id %></td>
+            <td>
+              <ul>
+                <% order.items.forEach(item => { %>
+                  <li><%= item.name || 'Item Name Missing' %> x <%= item.quantity || '0' %></li>
+                <% }); %>
+              </ul>
+            </td>
+            <td>$<%= (order.totalAmount || 0).toFixed(2) %></td>
+            <td><%= order.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A' %></td>
+            <td>
+              <% if (order.items && order.items.length > 0 && order.items[0].branch) { %>
+                <%= order.items[0].branch || 'Branch Name Missing' %>
+              <% } else { %>
+                N/A
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p>No orders found for the selected branch.</p>
+  <% } %>
+</div>
+
+<%- include('layouts/footer') %>

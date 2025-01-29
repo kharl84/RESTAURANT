@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Report</title>
+  <style>
+    /* Body Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f6f9; /* Light gray background for the page */
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh; /* Full viewport height */
+    }
+
+    /* Home Button Styles */
+    .home-button {
+      position: absolute;
+      top: 20px;
+      left: 160px;
+      padding: 10px 20px;
+      background-color: #6040b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .home-button:hover {
+      background-color: #45a049;
+    }
+
+    /* Container for the entire report */
+    .report-container {
+      background-color: white;
+      width: 80%;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title Styles */
+    .report-title {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    /* Section Styling */
+    .report-section {
+      margin-bottom: 30px;
+    }
+
+    .report-section h2 {
+      color: #2d3748;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .report-section p {
+      font-size: 1.125rem;
+      color: #2d3748;
+    }
+
+    /* Table Styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    /* Zebra Stripes for Tables */
+    tr:nth-child(even) td {
+      background-color: #f1f1f1;
+    }
+
+    /* Hover effect for rows */
+    tr:hover td {
+      background-color: #e1e1e1;
+    }
+
+    /* Links inside the tables */
+    table a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    table a:hover {
+      text-decoration: underline;
+    }
+
+    /* Branch Filter */
+    .branch-filter {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .branch-filter select {
+      padding: 8px;
+      font-size: 1rem;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Filter Button */
+    .branch-filter button {
+      padding: 8px 12px;
+      font-size: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .branch-filter button:hover {
+      background-color: #45a049;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="report-container">
+    <!-- Home Button -->
+    <a href="/" class="home-button">Home</a>
+
+    <h1 class="report-title">Admin Report</h1>
+
+    <!-- Branch Filter Dropdown -->
+    <div class="branch-filter">
+      <form action="/admin/report" method="GET">
+        <select name="branchId">
+          <option value="all">All Branches</option>
+          <% branches.forEach(branch => { %>
+            <option value="<%= branch._id %>" <%= branch._id.toString() === branchId ? 'selected' : '' %>>
+              <%= branch.city %> Branch
+            </option>
+          <% }); %>
+        </select>
+        <button type="submit">View Report</button>
+      </form>
+    </div>
+
+    <!-- Display Branch or Global Report Title -->
+    <h2><%= branchName !== 'All Branches' ? 'Report for ' + branchName : 'Global Report' %></h2>
+
+    <!-- Total Users -->
+    <div class="report-section">
+      <h2>Total Users</h2>
+      <p><strong>Total Users:</strong> <%= totalUsers %></p>
+    </div>
+
+    <!-- Roles Summary -->
+    <div class="report-section">
+      <h2>Roles Summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% rolesSummary.forEach(role => { %>
+            <tr>
+              <td><%= role._id %></td>
+              <td><%= role.count %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Recent Registrations -->
+    <div class="report-section">
+      <h2>Recent Registrations</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Registration Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentRegistrations.forEach(user => { %>
+            <tr>
+              <td><%= user.email %></td>
+              <td><%= user.role %></td>
+              <td><%= user.createdAt ? user.createdAt.toDateString() : 'N/A' %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Menu Items Summary -->
+    <div class="report-section">
+      <h2>Menu Items Summary</h2>
+      <% if (menuItems && menuItems.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Branch</th>
+              <th>Price (USD)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% menuItems.forEach(function(item) { %>
+              <tr>
+                <td><%= item.name %></td>
+                <td><%= item.branch %></td>
+                <td><%= item.price ? item.price.toFixed(2) : '0.00' %> USD</td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No items found for this branch.</p>
+      <% } %>
+    </div>
+
+    <!-- Orders Section -->
+    <div class="report-section">
+      <h2>Orders</h2>
+      <% if (orders && orders.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Order Name (ID)</th>
+              <th>Menu Items</th>
+              <th>Total Amount</th>
+              <th>Order Date</th>
+              <th>Branch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% orders.forEach(order => { %>
+              <tr>
+                <td>Order #<%= order._id %></td>
+                <td>
+                  <ul>
+                    <% order.items.forEach(item => { %>
+                      <li><%= item.name || 'Item Name Missing' %></li>
+                    <% }); %>
+                  </ul>
+                </td>
+                <td>$<%= (order.totalAmount || 0).toFixed(2) %></td>
+                <td><%= order.createdAt ? order.createdAt.toDateString() : 'N/A' %></td>
+                <td>
+                  <% if (order.items.length > 0) { %>
+                    <%= order.items[0].branch || 'Branch Name Missing' %>
+                  <% } else { %>
+                    N/A
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No orders found for this branch.</p>
+      <% } %>
+    </div>
+
+  </div>
+</body>
+</html>
